@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Client.Scripts;
+using Client.Scripts.ExtensionMethods;
 using Client.Scripts.Objects;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -14,7 +15,7 @@ public class TileSelector : MonoBehaviour
     [SerializeField] private float _selectionCurve;
     
     
-    private TileMatrix _tileMatrix;
+    private TileData _tileData;
     
     private Camera _camera;
 
@@ -22,35 +23,35 @@ public class TileSelector : MonoBehaviour
     private int _columns;
     private float _tileDistance;
     
-    private Coordinate _oldPosition;
+    private Vector2Int _oldPosition;
     
     public void Init()
     {
         _camera = Camera.main;
 
-        _tileMatrix = GetComponent<TileGenerator>().TileMatrix;
+        _tileData = GetComponent<TileGenerator>().TileData;
         
-        _rows = _tileMatrix.Rows;
-        _columns = _tileMatrix.Columns;
-        _tileDistance = _tileMatrix.Distance;
+        _rows = _tileData.Rows;
+        _columns = _tileData.Columns;
+        _tileDistance = _tileData.Distance;
     }
 
     
 
-    private float GetShiftAmount(Coordinate tilePosition, Coordinate mousePosition)
+    private float GetShiftAmount(Vector2Int tilePosition, Vector2Int mousePosition)
     {
-        var distance = Coordinate.GetDistance(tilePosition, mousePosition);
+        var distance = Utils.GetDistanceBetweenTwoPoints(tilePosition, mousePosition);
         var curve = 1 / (distance + _selectionCurve);
         return curve * _shiftDistance;
     }
-    private void SelectTileWave(Coordinate mousePosition)
+    private void SelectTileWave(Vector2Int mousePosition)
     {
         for(var i = 0; i < _rows; i++)
             for (var j = 0; j < _columns; j++)
-                _tileMatrix.Tiles[i].TileList[j]
+                _tileData.Tiles[i].TileList[j]
                     .ShiftTilesY(
                         GetShiftAmount(
-                            new Coordinate(i, j),
+                            new Vector2Int(i, j),
                             mousePosition
                     ));
     }
@@ -58,7 +59,7 @@ public class TileSelector : MonoBehaviour
     private Vector2 GetMousePosition() => _camera.ScreenToWorldPoint(Input.mousePosition);
         
 
-    private Coordinate MouseIsometricPosition()
+    private Vector2Int MouseIsometricPosition()
     {
         var mousePosition = GetMousePosition();
         
@@ -68,7 +69,7 @@ public class TileSelector : MonoBehaviour
         Utils.LimitValue(ref x, 0, _rows - 1);
         Utils.LimitValue(ref y, 0, _columns - 1);
         
-        return new Coordinate(x, y);
+        return new Vector2(x, y).Vector2IntConstructor();
     }
     
     

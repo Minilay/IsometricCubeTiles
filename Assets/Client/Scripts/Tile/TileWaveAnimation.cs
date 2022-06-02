@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Client.Scripts;
-using Client.Scripts.Objects;
 using UnityEngine;
-using UnityEngine.Tilemaps;
+using TileData = Client.Scripts.Objects.TileData;
 
 [RequireComponent(typeof(TileGenerator))]
 public class TileWaveAnimation : MonoBehaviour
@@ -16,7 +12,7 @@ public class TileWaveAnimation : MonoBehaviour
     [SerializeField] private float _waveDirectionAngle;
     
 
-    private TileMatrix _tileMatrix;
+    private TileData _tileData;
     private int _rows;
     private int _columns;
     private float _time;
@@ -32,9 +28,9 @@ public class TileWaveAnimation : MonoBehaviour
     }
     private void Start()
     {
-        _tileMatrix = GetComponent<TileGenerator>().TileMatrix;
-        _rows = _tileMatrix.Rows;
-        _columns = _tileMatrix.Columns;
+        _tileData = GetComponent<TileGenerator>().TileData;
+        _rows = _tileData.Rows;
+        _columns = _tileData.Columns;
     }
 
 
@@ -56,7 +52,7 @@ public class TileWaveAnimation : MonoBehaviour
         {
             for (var j = 0; j < _columns; j++)
             {
-                _tileMatrix.Tiles[i].TileList[j].ShiftTilesY(TileShiftAmount(i, j));
+                _tileData.Tiles[i].TileList[j].ShiftTilesY(TileShiftAmount(i, j));
             }
         }
     }

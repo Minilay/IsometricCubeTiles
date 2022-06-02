@@ -292,10 +292,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tilePrefab: {fileID: 2678687290672271876, guid: 7e989d472b3dd8c42857cfe763a274fe, type: 3}
-  <TileMatrix>k__BackingField:
+  <TileData>k__BackingField:
     <Rows>k__BackingField: 10
     <Columns>k__BackingField: 10
-    <Distance>k__BackingField: 1.07
+    <Distance>k__BackingField: 1.1
 --- !u!114 &1520106331
 MonoBehaviour:
   m_ObjectHideFlags: 0

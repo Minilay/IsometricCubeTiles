@@ -6,15 +6,17 @@ namespace Client.Scripts.Objects
 {
     //TODO: Implement This Class
     [Serializable]
-    public class TileMatrix
+    public class TileData
     {
+        //TODO: Replace with Vector2Int
         [field:SerializeField] public int Rows { get; private set; }
         [field:SerializeField] public int  Columns { get; private set; }
+        
         [field: SerializeField] public float Distance { get; private set; }
 
         public List<TileContainer> Tiles { get; private set; }
 
-        public TileMatrix()
+        public TileData()
         {
             Tiles = new List<TileContainer>();
         }
