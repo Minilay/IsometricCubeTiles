@@ -1,20 +1,17 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Client.Scripts;
 using Client.Scripts.ExtensionMethods;
 using Client.Scripts.Objects;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(TileGenerator))]
 public class TileSelector : MonoBehaviour
 {
-    [SerializeField] private float _shiftDistance;
-    [Range(1, 10)]
-    [SerializeField] private float _selectionCurve;
-    
-    
+    [field: SerializeField] public float ShiftDistance { get; set; }
+
+    [field: Range(1, 10)]
+    [field: SerializeField]
+    public float SelectionCurve { get; set; }
+
+
     private TileData _tileData;
     
     private Camera _camera;
@@ -41,8 +38,8 @@ public class TileSelector : MonoBehaviour
     private float GetShiftAmount(Vector2Int tilePosition, Vector2Int mousePosition)
     {
         var distance = Utils.GetDistanceBetweenTwoPoints(tilePosition, mousePosition);
-        var curve = 1 / (distance + _selectionCurve);
-        return curve * _shiftDistance;
+        var curve = 1 / (distance + SelectionCurve);
+        return curve * ShiftDistance;
     }
     private void SelectTileWave(Vector2Int mousePosition)
     {
@@ -56,12 +53,11 @@ public class TileSelector : MonoBehaviour
                     ));
     }
 
-    private Vector2 GetMousePosition() => _camera.ScreenToWorldPoint(Input.mousePosition);
-        
+     
 
     private Vector2Int MouseIsometricPosition()
     {
-        var mousePosition = GetMousePosition();
+        var mousePosition = Utils.GetMousePosition(_camera);
         
         var x = (mousePosition.x + 2 * mousePosition.y - 0.5f) / _tileDistance + _rows / 2.0f;
         var y = (-mousePosition.x + 2 * mousePosition.y - 0.5f) / _tileDistance + _columns / 2.0f;

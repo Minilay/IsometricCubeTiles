@@ -1,4 +1,5 @@
 ﻿using System;
+using Client.Scripts.Tools;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -19,7 +20,15 @@ namespace Client.Scripts
             _waveLength = waveLength;
             _phase = phase;
         }
-        
+
+        public HarmonicMotion(WaveParameters waveParameters, float phase)
+        {
+            _amplitude = waveParameters.Amplitude;
+            _period = waveParameters.Period;
+            _waveLength = waveParameters.WaveLength;
+            _phase = phase;
+
+        }
         public float GetPosition(float t)
         {
             var angularFrequency = 2 * Mathf.PI / _period;

@@ -4,11 +4,9 @@ using UnityEngine;
 
 namespace Client.Scripts.Objects
 {
-    //TODO: Implement This Class
     [Serializable]
     public class TileData
     {
-        //TODO: Replace with Vector2Int
         [field:SerializeField] public int Rows { get; private set; }
         [field:SerializeField] public int  Columns { get; private set; }
         

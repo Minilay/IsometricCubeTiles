@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Client.Scripts.Objects;
 using UnityEngine;
 
