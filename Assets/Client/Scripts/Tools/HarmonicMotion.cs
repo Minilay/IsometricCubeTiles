@@ -13,14 +13,6 @@ namespace Client.Scripts
         private readonly float _phase;
 
 
-        public HarmonicMotion(float amplitude, float period, float waveLength, float phase)
-        {
-            _amplitude = amplitude;
-            _period = period;
-            _waveLength = waveLength;
-            _phase = phase;
-        }
-
         public HarmonicMotion(WaveParameters waveParameters, float phase)
         {
             _amplitude = waveParameters.Amplitude;

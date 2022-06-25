@@ -1,3 +1,4 @@
+using System;
 using Client.Scripts.ExtensionMethods;
 using Client.Scripts.Objects;
 using UnityEngine;
@@ -8,8 +9,7 @@ public class TileSelector : MonoBehaviour
     [field: SerializeField] public float ShiftDistance { get; set; }
 
     [field: Range(1, 10)]
-    [field: SerializeField]
-    public float SelectionCurve { get; set; }
+    [field: SerializeField] public float Curve { get; set; }
 
 
     private TileData _tileData;
@@ -37,9 +37,9 @@ public class TileSelector : MonoBehaviour
 
     private float GetShiftAmount(Vector2Int tilePosition, Vector2Int mousePosition)
     {
-        var distance = Utils.GetDistanceBetweenTwoPoints(tilePosition, mousePosition);
-        var curve = 1 / (distance + SelectionCurve);
-        return curve * ShiftDistance;
+        var distance = Utils.GetDistance(tilePosition, mousePosition);
+        
+        return ShiftDistance / (distance + Curve);
     }
     private void SelectTileWave(Vector2Int mousePosition)
     {
@@ -62,10 +62,9 @@ public class TileSelector : MonoBehaviour
         var x = (mousePosition.x + 2 * mousePosition.y - 0.5f) / _tileDistance + _rows / 2.0f;
         var y = (-mousePosition.x + 2 * mousePosition.y - 0.5f) / _tileDistance + _columns / 2.0f;
         
-        Utils.LimitValue(ref x, 0, _rows - 1);
-        Utils.LimitValue(ref y, 0, _columns - 1);
+        return new Vector2(Mathf.Clamp(x, 0, _rows - 1),
+            Mathf.Clamp(y, 0, _columns - 1)).Vector2IntConstructor();
         
-        return new Vector2(x, y).Vector2IntConstructor();
     }
     
     

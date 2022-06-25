@@ -11,9 +11,8 @@ public class TileGenerator : MonoBehaviour
     {
         var newTile = Instantiate(_tilePrefab, transform, true);
         newTile.SetTileRenderPriority(x,y);
-        newTile.name = $"{x}-{y}";
         newTile.transform.position = TileData.TileCoordinatesToPosition(x, y);
-
+        
         return newTile;
     }
     
@@ -21,6 +20,8 @@ public class TileGenerator : MonoBehaviour
     {
         var rows = TileData.Rows;
         var columns = TileData.Columns;
+        
+        
         for (var i = -rows/2; i < (rows + 1) / 2; i++)
         {
             var temporaryList = new TileContainer();

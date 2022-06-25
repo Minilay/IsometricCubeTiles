@@ -4,30 +4,24 @@ using UnityEngine;
 namespace Client.Scripts.Tools
 {
     [Serializable]
-    public struct WaveParameters
+    public class WaveParameters
     {
-        [field:SerializeField] public float Amplitude { get; set; }
-        [SerializeField] private float _period;
-        [SerializeField] private float _waveLength;
-        [Range(0, 360)]
-        [SerializeField] private float _waveDirectionAngle;
+        [field: SerializeField] public float Amplitude { get; private set; }
+        [field: SerializeField] public float Period { get; private set; }
+        [field: SerializeField] public float WaveLength { get; private set; }
+
+        [field: Range(0, 360)]
+        [field: SerializeField] public float WaveAngle { get; private set; }
 
 
-        public float Period
+        public WaveParameters(float amplitude, float period, float waveLength, float waveAngle)
         {
-            get => _period;
-            set => _period = value <= 0 ? 0.001f : value;
+            Amplitude = amplitude;
+            Period = period <= 0 ? 0.001f : period;
+            WaveLength = waveLength > 0 ? waveLength : 0.001f;
+            WaveAngle = waveAngle;
         }
-        public float WaveLength
-        {
-            get => _waveLength;
-            set => _waveLength = value > 0 ? value : 0.001f;
-        }
-
-        public float WaveDirectionAngle
-        {
-            get => _waveDirectionAngle;
-            set => _waveDirectionAngle = value;
-        }
+        
+        
     }
 }
